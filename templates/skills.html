@@ -1,0 +1,150 @@
+<!-- main/templates/skills.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Skills{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header text-center py-5">
+    <div class="container">
+        <h1 class="page-title">My Skills</h1>
+        <p class="page-subtitle">Technologies and tools I work with</p>
+    </div>
+</div>
+
+<!-- Skills Section -->
+<section class="page-section">
+    <div class="container">
+        {% for category, skill_list in skills.items %}
+        <div class="skill-category">
+            <h3 class="skill-category-title">
+                {% if 'Programming' in category %}
+                <i class="fas fa-code me-2"></i>
+                {% elif 'Web' in category %}
+                <i class="fas fa-laptop-code me-2"></i>
+                {% elif 'Data Science' in category %}
+                <i class="fas fa-brain me-2"></i>
+                {% elif 'Visualization' in category %}
+                <i class="fas fa-chart-line me-2"></i>
+                {% else %}
+                <i class="fas fa-tools me-2"></i>
+                {% endif %}
+                {{ category }}
+            </h3>
+            <div class="row">
+                {% for skill in skill_list %}
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="skill-card">
+                        <!-- Dynamic Icons Based on Skill Name -->
+                        {% if skill == 'Python' %}
+                        <i class="fab fa-python skill-icon"></i>
+                        {% elif skill == 'JavaScript' %}
+                        <i class="fab fa-js skill-icon"></i>
+                        {% elif skill == 'Java' %}
+                        <i class="fab fa-java skill-icon"></i>
+                        {% elif skill == 'Django' %}
+                        <i class="fab fa-python skill-icon"></i>
+                        {% elif skill == 'HTML' %}
+                        <i class="fab fa-html5 skill-icon"></i>
+                        {% elif skill == 'CSS' %}
+                        <i class="fab fa-css3-alt skill-icon"></i>
+                        {% elif skill == 'Bootstrap' %}
+                        <i class="fab fa-bootstrap skill-icon"></i>
+                        {% elif skill == 'Git' %}
+                        <i class="fab fa-git-alt skill-icon"></i>
+                        {% elif skill == 'GitHub' %}
+                        <i class="fab fa-github skill-icon"></i>
+                        {% elif skill == 'SQL' or skill == 'PostgreSQL' %}
+                        <i class="fas fa-database skill-icon"></i>
+                        {% elif 'Pandas' in skill or 'NumPy' in skill %}
+                        <i class="fas fa-chart-bar skill-icon"></i>
+                        {% elif 'TensorFlow' in skill or 'Scikit' in skill %}
+                        <i class="fas fa-robot skill-icon"></i>
+                        {% elif 'Matplotlib' in skill or 'Seaborn' in skill or 'Plotly' in skill %}
+                        <i class="fas fa-chart-pie skill-icon"></i>
+                        {% elif 'VS Code' in skill or 'Jupyter' in skill %}
+                        <i class="fas fa-terminal skill-icon"></i>
+                        {% else %}
+                        <i class="fas fa-cog skill-icon"></i>
+                        {% endif %}
+                        
+                        <h5 class="skill-name">{{ skill }}</h5>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Proficiency Levels -->
+        <div class="proficiency-section">
+            <h3 class="section-title text-center mb-5">Proficiency Levels</h3>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="proficiency-item">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-light">Python & Data Science</span>
+                            <span class="text-light">90%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="proficiency-item">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-light">Machine Learning</span>
+                            <span class="text-light">85%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="proficiency-item">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-light">Web Development</span>
+                            <span class="text-light">80%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="proficiency-item">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-light">Database Management</span>
+                            <span class="text-light">75%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <div class="proficiency-item">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-light">Data Visualization</span>
+                            <span class="text-light">88%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 88%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-5">
+            <h4 class="text-light mb-4">Want to see these skills in action?</h4>
+            <a href="{% url 'myapp:projects' %}" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-folder-open me-2"></i>View Projects
+            </a>
+            <a href="{% url 'myapp:contact' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-envelope me-2"></i>Get in Touch
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,196 @@
+<!-- main/templates/home.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <div class="sparkle">✨</div>
+                    <h1 class="hero-title">
+                        <span class="text-primary">{{ name }}</span>
+                    </h1>
+                    <h2 class="hero-subtitle">{{ role }}</h2>
+                    <p class="hero-description">{{ summary }}</p>
+                    
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-download me-2"></i>Download CV
+                        </a>
+                        <a href="{% url 'myapp:contact' %}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Contact Me
+                        </a>
+                    </div>
+
+                    <div class="hero-stats mt-5">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="stat-number">{{ total_projects }}</h3>
+                                    <p class="stat-label">Projects</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="stat-number">10</h3>
+                                    <p class="stat-label">Skills</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="stat-number">3+</h3>
+                                    <p class="stat-label">Years</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <div class="image-frame">
+                        <img src="{% static 'images/me.jpeg' %}" alt="Profile" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+        <div class="mouse">
+            <div class="wheel"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick About Section -->
+<section class="quick-about py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="section-title">What I Do</h2>
+                <p class="section-subtitle">Transforming data into insights and building intelligent solutions</p>
+                
+                <div class="row mt-5">
+                    <div class="col-md-4 mb-4">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4>Data Analysis</h4>
+                            <p>Analyzing complex datasets to extract meaningful insights and support decision-making</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h4>Machine Learning</h4>
+                            <p>Building predictive models and intelligent systems using cutting-edge ML algorithms</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4>Web Development</h4>
+                            <p>Creating responsive and dynamic web applications with modern frameworks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Preview -->
+<section class="featured-projects py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Check out some of my recent work</p>
+        </div>
+        
+        <div class="row">
+            {% if featured_projects %}
+                {% for project in featured_projects %}
+                <div class="col-md-4 mb-4">
+                    <a href="{% url 'myapp:project_detail' project.id %}" class="text-decoration-none">
+                        <div class="project-preview-card">
+                            <div class="project-preview-image">
+                                {% if project.image %}
+                                <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                                {% else %}
+                                <img src="{% static 'images/placeholder.jpg' %}" alt="{{ project.title }}">
+                                {% endif %}
+                                <div class="project-overlay">
+                                    <i class="fas fa-eye"></i>
+                                    <p>View Details</p>
+                                </div>
+                            </div>
+                            <div class="project-preview-content">
+                                <h4>{{ project.title }}</h4>
+                                <p class="tech-stack">
+                                    {% for tech in project.get_tech_stack_list|slice:":3" %}
+                                        {{ tech }}{% if not forloop.last %} • {% endif %}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-4 mb-4">
+                    <div class="project-preview-card">
+                        <div class="project-preview-image">
+                            <img src="{% static 'images/placeholder.jpg' %}" alt="Project">
+                        </div>
+                        <div class="project-preview-content">
+                            <h4>Machine Learning Model</h4>
+                            <p class="tech-stack">Python • Scikit-learn • Pandas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="project-preview-card">
+                        <div class="project-preview-image">
+                            <img src="{% static 'images/placeholder.jpg' %}" alt="Project">
+                        </div>
+                        <div class="project-preview-content">
+                            <h4>Data Visualization Dashboard</h4>
+                            <p class="tech-stack">Django • Plotly • Bootstrap</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="project-preview-card">
+                        <div class="project-preview-image">
+                            <img src="{% static 'images/placeholder.jpg' %}" alt="Project">
+                        </div>
+                        <div class="project-preview-content">
+                            <h4>Web Application</h4>
+                            <p class="tech-stack">Django • PostgreSQL • REST API</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'myapp:projects' %}" class="btn btn-primary">
+                View All Projects <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

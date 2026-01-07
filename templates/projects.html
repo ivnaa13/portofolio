@@ -1,0 +1,82 @@
+<!-- main/templates/projects.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="hero-title mb-4">My Projects</h1>
+                <p class="hero-subtitle">
+                    A collection of my work in Data Science, Machine Learning, and Web Development
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Grid Section -->
+<section class="featured-projects py-5">
+    <div class="container">
+        {% if projects %}
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'myapp:project_detail' project.id %}" class="text-decoration-none">
+                    <div class="project-preview-card">
+                        <div class="project-preview-image">
+                            {% if project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            {% else %}
+                            <img src="{% static 'images/placeholder.jpg' %}" alt="{{ project.title }}">
+                            {% endif %}
+                            <div class="project-overlay">
+                                <i class="fas fa-eye"></i>
+                                <p>View Details</p>
+                            </div>
+                        </div>
+                        <div class="project-preview-content">
+                            <h4>{{ project.title }}</h4>
+                            <p class="project-description">{{ project.description|truncatewords:15 }}</p>
+                            <div class="tech-stack mt-2">
+                                {% for tech in project.get_tech_stack_list %}
+                                <span class="badge bg-secondary me-1">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-folder-open fa-5x text-muted mb-4"></i>
+            <h3>No Projects Yet</h3>
+            <p class="text-muted">Projects will be added soon. Stay tuned!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="section-title mb-4">Interested in Working Together?</h2>
+                <p class="section-subtitle mb-4">
+                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                </p>
+                <a href="{% url 'myapp:contact' %}" class="btn btn-primary btn-lg">
+                    Get In Touch <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

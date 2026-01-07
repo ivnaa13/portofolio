@@ -1,0 +1,105 @@
+<!-- main/templates/contact.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <div class="page-header text-center mb-5">
+            <h1 class="page-title">Get In Touch</h1>
+            <p class="page-subtitle">Have a question or want to work together?</p>
+        </div>
+
+        <div class="row">
+            <!-- Contact Form -->
+            <div class="col-lg-7 mb-4">
+                <div class="contact-form-wrapper">
+                    <h3 class="mb-4">Send Me a Message</h3>
+                    <form method="POST" action="{% url 'myapp:contact' %}">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">Your Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="text-danger mt-1">{{ form.name.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger mt-1">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.message.id_for_label }}" class="form-label">Message</label>
+                            {{ form.message }}
+                            {% if form.message.errors %}
+                                <div class="text-danger mt-1">{{ form.message.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-lg-5">
+                <div class="contact-info-wrapper">
+                    <h3 class="mb-4">Contact Information</h3>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5>Email</h5>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to={{ email }}" target="_blank" rel="noopener noreferrer" class="contact-link">{{ email }}</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5>WhatsApp</h5>
+                            <a href="https://wa.me/{{ whatsapp_number }}" target="_blank" rel="noopener noreferrer" class="contact-link">{{ phone }}</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5>Location</h5>
+                            <p>{{ location }}</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links-section mt-4">
+                        <h5 class="mb-3">Follow Me</h5>
+                        <div class="social-links-contact">
+                            <a href="{{ linkedin_url }}" target="_blank" rel="noopener noreferrer" class="social-link-contact" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="{{ github_url }}" target="_blank" rel="noopener noreferrer" class="social-link-contact" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
