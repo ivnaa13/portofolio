@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Project
+from .models import Project, AboutPage, Skill
 from .forms import ContactForm
 
 def home(request):
@@ -13,8 +13,8 @@ def home(request):
     
     context = {
         'name': 'Nur Ivana Maharani Soamole',
-        'role': 'Data Science Concentration & Information Systems Student',
-        'summary': 'Passionate about Data Science, Machine Learning, and Web Development. Currently pursuing a degree in Information Systems with focus on Data Science.',
+        'role': 'Information Systems Student',
+        'summary': 'Currently pursuing a degree in Information Systems with focus on Data Science.',
         'featured_projects': featured_projects,
         'total_projects': total_projects,
     }
@@ -23,12 +23,20 @@ def home(request):
 
 def about(request):
     """About page dengan background pendidikan"""
+    # Ambil data dari AboutPage model (jika ada)
+    about_page = AboutPage.objects.first()
+    
+    # Ambil semua skills yang aktif
+    skills = Skill.objects.filter(is_active=True)
+    
     context = {
+        'about_page': about_page,
+        'skills': skills,
         'education': {
             'degree': 'Bachelor of Information Systems',
             'university': 'President University',
             'year': '2023 - Present',
-            'gpa': '3.54/4.0'
+            'gpa': '3.62/4.0'
         },
         'interests': [
             'Data Science & Analytics',
@@ -55,7 +63,7 @@ def project_detail(request, project_id):
     context = {
         'project': project
     }
-    return render(request, 'project_detail.html', context)
+    return render(request, 'myapp/project_detail.html', context)
 
 
 def contact(request):

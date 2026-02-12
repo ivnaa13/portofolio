@@ -5,13 +5,13 @@
 {% block title %}Projects{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section d-flex align-items-center">
+<!-- Hero Section - Spacing Optimized -->
+<section class="hero-section d-flex align-items-center" style="min-height: 40vh; padding: 3rem 0 2rem;">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h1 class="hero-title mb-4">My Projects</h1>
-                <p class="hero-subtitle">
+                <h1 class="hero-title mb-3">My Projects</h1>
+                <p class="hero-subtitle mb-0">
                     A collection of my work in Data Science, Machine Learning, and Web Development
                 </p>
             </div>
@@ -19,13 +19,13 @@
     </div>
 </section>
 
-<!-- Projects Grid Section -->
-<section class="featured-projects py-5">
+<!-- Projects Grid Section - Spacing Optimized -->
+<section class="featured-projects py-4">
     <div class="container">
         {% if projects %}
-        <div class="row">
+        <div class="row g-4">
             {% for project in projects %}
-            <div class="col-md-4 mb-4">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                 <a href="{% url 'myapp:project_detail' project.id %}" class="text-decoration-none">
                     <div class="project-preview-card">
                         <div class="project-preview-image">
@@ -54,8 +54,8 @@
             {% endfor %}
         </div>
         {% else %}
-        <div class="text-center py-5">
-            <i class="fas fa-folder-open fa-5x text-muted mb-4"></i>
+        <div class="text-center py-4">
+            <i class="fas fa-folder-open fa-5x text-muted mb-3"></i>
             <h3>No Projects Yet</h3>
             <p class="text-muted">Projects will be added soon. Stay tuned!</p>
         </div>
@@ -63,13 +63,13 @@
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="cta-section py-5">
+<!-- CTA Section - Spacing Optimized -->
+<section class="cta-section py-4">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h2 class="section-title mb-4">Interested in Working Together?</h2>
-                <p class="section-subtitle mb-4">
+                <h2 class="section-title mb-3">Interested in Working Together?</h2>
+                <p class="section-subtitle mb-3">
                     I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                 </p>
                 <a href="{% url 'myapp:contact' %}" class="btn btn-primary btn-lg">
@@ -79,4 +79,241 @@
         </div>
     </div>
 </section>
+
+<style>
+/* ===================================
+   GRID LAYOUT FIX - 3 Cards Per Row
+   =================================== */
+
+/* Projects Grid - Fixed untuk 3 kartu per baris yang lurus */
+.featured-projects .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
+
+.featured-projects .row > [class*='col-'] {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+/* Desktop & Tablet Landscape: 3 cards per row */
+@media (min-width: 992px) {
+    .featured-projects .col-lg-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+}
+
+/* Tablet Portrait: 2 cards per row */
+@media (min-width: 768px) and (max-width: 991px) {
+    .featured-projects .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* Mobile: 1 card per row */
+@media (max-width: 767px) {
+    .featured-projects .col-sm-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* Ensure all project cards have same height */
+.project-preview-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-preview-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-preview-image {
+    position: relative;
+    width: 100%;
+    padding-top: 60%; /* 16:9 aspect ratio */
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+}
+
+.project-preview-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-preview-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+
+.project-preview-content h4 {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.project-preview-content .project-description {
+    flex: 1;
+    margin-bottom: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+.project-preview-content .tech-stack {
+    margin-top: auto;
+}
+
+/* ===================================
+   SPACING OPTIMIZATIONS
+   =================================== */
+
+/* Hero Section - Reduced height & padding */
+.hero-section {
+    min-height: 40vh !important;
+    padding: 3rem 0 2rem !important;
+}
+
+.hero-title {
+    margin-bottom: 1rem !important;
+}
+
+.hero-subtitle {
+    margin-bottom: 0 !important;
+}
+
+/* Projects Section - Consistent spacing */
+.featured-projects {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+.featured-projects .row {
+    row-gap: 1.5rem !important;
+}
+
+/* Remove individual mb-4 from columns since we use row-gap */
+.featured-projects [class*='col-'] {
+    margin-bottom: 0 !important;
+}
+
+/* CTA Section - Reduced padding */
+.cta-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+.cta-section .section-title {
+    margin-bottom: 1rem !important;
+}
+
+.cta-section .section-subtitle {
+    margin-bottom: 1rem !important;
+}
+
+/* Empty State - Reduced padding */
+.featured-projects .text-center {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+.featured-projects .fa-folder-open {
+    margin-bottom: 1rem !important;
+}
+
+/* ===================================
+   RESPONSIVE ADJUSTMENTS
+   =================================== */
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 30vh !important;
+        padding: 2rem 0 1.5rem !important;
+    }
+    
+    .featured-projects {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+    
+    .cta-section {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        min-height: 25vh !important;
+        padding: 1.5rem 0 1rem !important;
+    }
+    
+    .featured-projects {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    .cta-section {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    .project-preview-content h4 {
+        font-size: 1.1rem;
+    }
+    
+    .project-preview-content {
+        padding: 1rem;
+    }
+}
+
+/* ===================================
+   ADDITIONAL GRID STABILITY
+   =================================== */
+
+/* Force consistent card widths - prevent flexbox wrapping issues */
+.featured-projects .row {
+    align-items: stretch; /* Make all cards same height in a row */
+}
+
+/* Clear every 3rd item on large screens */
+@media (min-width: 992px) {
+    .featured-projects .col-lg-4:nth-child(3n+1) {
+        clear: left;
+    }
+}
+
+/* Clear every 2nd item on medium screens */
+@media (min-width: 768px) and (max-width: 991px) {
+    .featured-projects .col-md-6:nth-child(2n+1) {
+        clear: left;
+    }
+}
+
+/* Prevent floating/alignment issues */
+.featured-projects .col-lg-4,
+.featured-projects .col-md-6,
+.featured-projects .col-sm-12 {
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-projects a {
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+</style>
+
 {% endblock %}
