@@ -14,3 +14,11 @@ venv/
 
 # Jupyter
 .ipynb_checkpoints/
+
+media/
+*.pkl
+*.pdf
+*.jpeg
+*.jpg
+*.png
+
